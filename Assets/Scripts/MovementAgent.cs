@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class MovementAgent : MonoBehaviour
 {
+    [SerializeField] // отображение поля в едиторе
     private float m_Speed;
+    [SerializeField]
     private Vector3 m_Target;
 
     private const float TOLERANCE = 0.1f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // установить скорость
-        m_Speed = 5f;
-        m_Target = new Vector3(10f, 0f, 10f);
-    }
 
     // Update is called once per frame
     void Update()
