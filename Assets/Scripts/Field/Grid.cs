@@ -12,12 +12,14 @@ namespace Field
         private int m_Width;
         private int m_Height;
 
+        private FlowFieldPathfinding m_Pathfinding;
+
         // публичные свойства
         public int Width => m_Width;
         public int Height => m_Height;
 
         // конструктор сетки
-        public Grid(int width, int height)
+        public Grid(int width, int height,Vector3 offset, float nodeSize, Vector2Int target)
         {
             m_Width = width;
             m_Height = height;
@@ -30,9 +32,14 @@ namespace Field
             {
                 for (int j = 0; j < m_Nodes.GetLength(1); j++)
                 {
-                    m_Nodes[i, j] = new Node();
+                    m_Nodes[i, j] = new Node(offset + new Vector3(i + .5f, 0f, j + .5f) * nodeSize);
                 }
             }
+
+            m_Pathfinding = new FlowFieldPathfinding(this, target);
+
+            // обновляем поле
+            m_Pathfinding.UpdateField();
         }
 
         public Node GetNode (Vector2Int coordinate)
@@ -69,6 +76,11 @@ namespace Field
                     yield return GetNode(i, j);
                 }
             }
+        }
+
+        public void UpdatePathFinding()
+        {
+            m_Pathfinding.UpdateField();
         }
     }
 }

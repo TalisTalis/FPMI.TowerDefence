@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ namespace Field
         // метод обновления всего поля
         public void UpdateField()
         {
-            // всем нодам сбросили веса
+            // всем нодам сбросили веса (устанавливаем максимальные веса)
             foreach (Node node in m_Grid.EnumerateAllNodes())
             {
                 node.ResetWeight();
@@ -34,19 +34,36 @@ namespace Field
             // проход начинается с таргета поэтому в очередь в начале нужно засунуть таргет
             queue.Enqueue(m_Target);
 
+            // установка таргету вес ноль так как путь от таргета к таргету ноль
+            m_Grid.GetNode(m_Target).PatWeight = 0f;
+
             // цикл пока очередь не пустая
             while (queue.Count > 0)
             {
                 // берем из очереди первую верхнюю координату
                 Vector2Int current = queue.Dequeue();
 
+                Node currentNode = m_Grid.GetNode(current);
+
+                // берем вес текущей ноды из очереди
+                float weigthToTarget = currentNode.PatWeight + 1f;
+
                 // пройтись по всем соседям
                 foreach (Vector2Int neighbour in GetNeighbours(current))
                 {
-                    m_Grid.GetNode(neighbour).NextNode = m_Grid.GetNode(current);
+                    Node neighbourNode = m_Grid.GetNode(neighbour);
 
-                    // добавление соседа в очередь
-                    queue.Enqueue(current);
+                    if (weigthToTarget < neighbourNode.PatWeight)
+                    {
+                        // устанавливаем текущую ноду соседней
+                        neighbourNode.NextNode = currentNode;
+
+                        // усутанавливаем соседней ноде вес цели
+                        neighbourNode.PatWeight = weigthToTarget;
+
+                        // добавление соседа в очередь
+                        queue.Enqueue(neighbour);                        
+                    }
                 }
             }
         }

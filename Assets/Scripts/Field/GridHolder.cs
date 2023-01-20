@@ -10,6 +10,13 @@ namespace Field
         [SerializeField]
         private int m_GridHeight;
 
+        [SerializeField]
+        private Vector2Int m_Target;
+
+        // точка старта врагов
+        [SerializeField]
+        private Vector2Int m_Start;
+
         // размер нода
         [SerializeField]
         private float m_NodeSize;
@@ -26,8 +33,7 @@ namespace Field
         // лучше умножение вместо деления
         // создание сетки до метода старт
         public void Awake()
-        {
-            m_Grid = new Grid(m_GridWidth, m_GridHeight);
+        {            
             m_Camera = Camera.main;
             
             float width = m_GridWidth * m_NodeSize;
@@ -36,6 +42,23 @@ namespace Field
             // установка размера плоскости от ширины, высоты и размера нода
             transform.localScale = new Vector3(width * 0.1f, 
                                                 1f, 
+                                                height * 0.1f);
+
+            // вычисление левого нижнего края (центр плоскости минус половину ширину и высоту)
+            m_Offset = transform.position - (new Vector3(width, 0f, height) * 0.5f);
+            
+            // создание сетки
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_Target);
+        }
+
+        private void OnValidate()
+        {
+            float width = m_GridWidth * m_NodeSize;
+            float height = m_GridHeight * m_NodeSize;
+
+            // установка размера плоскости от ширины, высоты и размера нода
+            transform.localScale = new Vector3(width * 0.1f,
+                                                1f,
                                                 height * 0.1f);
 
             // вычисление левого нижнего края (центр плоскости минус половину ширину и высоту)
@@ -75,8 +98,15 @@ namespace Field
 
                 int y = (int)(difference.z / m_NodeSize);
 
-                // попадание
-                Debug.Log(x.ToString() + " " + y.ToString());
+                // попадание - нода занята
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Node node = m_Grid.GetNode(x,y);
+                    node.IsOccupied = !node.IsOccupied;
+
+                    m_Grid.UpdatePathFinding();
+                }
+
             }
         }
 
@@ -84,45 +114,39 @@ namespace Field
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(m_Offset, 0.1f);
-        }
 
-        private void OnValidate()
-        {
-            if (m_Grid == null || m_Camera == null)
+            if (m_Grid == null)
             {
                 return;
             }
 
-            // получение текущего положения мышки
-            Vector3 mousePosition = Input.mousePosition;
-
-            // создать луч от точки до точки
-            Ray ray = m_Camera.ScreenPointToRay(mousePosition);
-
-            // каст проверка колайдера на попадание
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            foreach (Node node in m_Grid.EnumerateAllNodes())
             {
-                // проверка попали ли в себя же
-                if (hit.transform != transform)
+                if (node.NextNode == null)
                 {
-                    return;
+                    continue;
                 }
 
-                // точка в которую попадает курсор мыши (вектор из угла куда попал указатель мыши)
-                Vector3 hitPosition = hit.point;
+                if (node.IsOccupied)
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawSphere(node.Position, 0.5f);
+                    continue;
+                }
+                
+                Gizmos.color = Color.green;
 
-                // разница между векторами
-                Vector3 difference = hitPosition - m_Offset;
+                Vector3 start = node.Position;
+                Vector3 end = node.NextNode.Position;
 
-                // деление на размер нода даст координату куда попал указатель
-                int x = (int)(difference.x / m_NodeSize);
+                Vector3 dir = end - start;
 
-                int y = (int)(difference.z / m_NodeSize);
+                start -= dir * 0.25f;
+                end -= dir * 0.75f;
 
-                // попадание
-                Debug.Log(x.ToString() + " " + y.ToString());
+                Gizmos.DrawLine(start, end);
+                Gizmos.DrawSphere(end, 0.1f);
             }
-        }
+        }        
     }
 }
