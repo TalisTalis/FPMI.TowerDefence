@@ -36,7 +36,7 @@ namespace Unit
     }
 
     // метод задает стартовую ноду из которой мы вышли
-    public void SteStartNode(Node node)
+    public void SetStartNode(Node node)
     {
       m_TargetNode = node;
     }

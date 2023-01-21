@@ -11,11 +11,11 @@ namespace Field
         private int m_GridHeight;
 
         [SerializeField]
-        private Vector2Int m_Target;
+        private Vector2Int m_TargetCoordinate;
 
         // точка старта врагов
         [SerializeField]
-        private Vector2Int m_Start;
+        private Vector2Int m_StartCoordinate;
 
         // размер нода
         [SerializeField]
@@ -30,9 +30,12 @@ namespace Field
         // переменная для вычисления оффсета (нахождение левого нижнего угла плоскости)
         private Vector3 m_Offset;
 
+        public Vector2Int StartCoordinate => m_StartCoordinate;
+        public Grid Grid => m_Grid;
+
         // лучше умножение вместо деления
         // создание сетки до метода старт
-        public void Awake()
+        private void Start()
         {            
             m_Camera = Camera.main;
             
@@ -48,7 +51,7 @@ namespace Field
             m_Offset = transform.position - (new Vector3(width, 0f, height) * 0.5f);
             
             // создание сетки
-            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_Target);
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate);
         }
 
         private void OnValidate()

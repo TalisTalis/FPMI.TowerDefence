@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 823043243}
   - component: {fileID: 823043242}
   - component: {fileID: 823043246}
+  - component: {fileID: 823043247}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -330,9 +331,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GridWidth: 20
   m_GridHeight: 20
-  m_Target: {x: 0, y: 0}
-  m_Start: {x: 0, y: 0}
+  m_TargetCoordinate: {x: 0, y: 0}
+  m_StartCoordinate: {x: 19, y: 19}
   m_NodeSize: 1
+--- !u!114 &823043247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823043240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334690f24575a2a4282850ceafc885d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementAgent: {fileID: 9142403033368450996, guid: 4cf2fce60e740714280cb4d1805bbb9d, type: 3}
+  m_GrigHolder: {fileID: 823043246}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
