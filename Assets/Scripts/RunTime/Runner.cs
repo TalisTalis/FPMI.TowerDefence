@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Enemy;
+using EnemySpawn;
+using Field;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +26,7 @@ namespace RunTime
         // метод который говорит что мы начали работать
         public void StartRunning ()
         {
-            CreateAllCControllers();
+            CreateAllControllers();
             OnStartControllers();
             m_IsRunning = true;
         }
@@ -34,12 +37,14 @@ namespace RunTime
             m_IsRunning = false;
         }
 
-        private void CreateAllCControllers()
+        private void CreateAllControllers()
         {
-            m_Controllers = new List<IController>();
-
-            // так как пока нет контроллеров то наполнить список нечем
-            m_Controllers.Add(new TestController());
+            m_Controllers = new List<IController>()
+            {
+                new GridPointerController(Game.Player.GridHolder),
+                new EnemySpawnController(Game.CurrentLevel.SpawnWavesAsset, Game.Player.Grid),
+                new MovementController()
+            };
         }
 
         private void OnStartControllers()

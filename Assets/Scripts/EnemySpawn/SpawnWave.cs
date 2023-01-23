@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using Assets;
 
-namespace Assets
+namespace EnemySpawn
 {
-    [CreateAssetMenu(menuName = "Assets/Spawn Waves Asset", fileName = "Spawn Waves Asset")]
-    public class SpawnWavesAsset : ScriptableObject
+    [System.Serializable]
+    public class SpawnWave
     {
         public EnemyAsset EnemyAsset;
         // спавн нескольких врагов
         public int Count;
         // время между спавном
         public float TimeBetweenSpawns;
+
+        public float TimeBeforeStartWave;
     }
 }

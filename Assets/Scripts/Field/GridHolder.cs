@@ -35,23 +35,25 @@ namespace Field
 
         // лучше умножение вместо деления
         // создание сетки до метода старт
-        private void Start()
-        {            
+
+        // метод который делает тоже самое
+        public void CreateGrid()
+        {
             m_Camera = Camera.main;
-            
+
             float width = m_GridWidth * m_NodeSize;
             float height = m_GridHeight * m_NodeSize;
 
             // установка размера плоскости от ширины, высоты и размера нода
-            transform.localScale = new Vector3(width * 0.1f, 
-                                                1f, 
+            transform.localScale = new Vector3(width * 0.1f,
+                                                1f,
                                                 height * 0.1f);
 
             // вычисление левого нижнего края (центр плоскости минус половину ширину и высоту)
             m_Offset = transform.position - (new Vector3(width, 0f, height) * 0.5f);
-            
+
             // создание сетки
-            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate);
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_StartCoordinate, m_TargetCoordinate);
         }
 
         private void OnValidate()
@@ -68,7 +70,7 @@ namespace Field
             m_Offset = transform.position - (new Vector3(width, 0f, height) * 0.5f);
         }
 
-        private void Update()
+        public void RaycastInGrid()
         {
             if (m_Grid == null || m_Camera == null)
             {
@@ -87,6 +89,7 @@ namespace Field
                 // проверка попали ли в себя же
                 if (hit.transform != transform)
                 {
+                    m_Grid.UnselectNode();
                     return;
                 }
 
@@ -101,15 +104,11 @@ namespace Field
 
                 int y = (int)(difference.z / m_NodeSize);
 
-                // попадание - нода занята
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Node node = m_Grid.GetNode(x,y);
-                    node.IsOccupied = !node.IsOccupied;
-
-                    m_Grid.UpdatePathFinding();
-                }
-
+                m_Grid.SelectedCoordinate(new Vector2Int(x, y));
+            }
+            else
+            {
+                m_Grid.UnselectNode();
             }
         }
 

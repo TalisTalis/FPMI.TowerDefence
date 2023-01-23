@@ -12,6 +12,12 @@ namespace Field
         private int m_Width;
         private int m_Height;
 
+        private Vector2Int m_StartCoordinate;
+        private Vector2Int m_TargetCoordinate;
+
+        // хранение выбранной ноды
+        private Node m_SelectedNode = null;
+
         private FlowFieldPathfinding m_Pathfinding;
 
         // публичные свойства
@@ -19,10 +25,13 @@ namespace Field
         public int Height => m_Height;
 
         // конструктор сетки
-        public Grid(int width, int height,Vector3 offset, float nodeSize, Vector2Int target)
+        public Grid(int width, int height,Vector3 offset, float nodeSize, Vector2Int startCoordinate, Vector2Int target)
         {
             m_Width = width;
             m_Height = height;
+
+            m_StartCoordinate = startCoordinate;
+            m_TargetCoordinate = target;
 
             // создаем массив
             m_Nodes = new Node[m_Width, m_Height];
@@ -42,6 +51,37 @@ namespace Field
             m_Pathfinding.UpdateField();
         }
 
+        // метод который возвращает стартовый нод
+        public Node GetStartNode()
+        {
+            return GetNode(m_StartCoordinate);
+        }
+
+        // метод который возвращает нод цели
+        public Node GetTargetNode()
+        {
+            return GetNode(m_TargetCoordinate);
+        }
+
+        public void SelectedCoordinate(Vector2Int coordinate)
+        {
+            m_SelectedNode = GetNode(coordinate);
+        }
+
+        public void UnselectNode()
+        {
+            m_SelectedNode = null;
+        }
+
+        public Node GetSelectedNode ()
+        {
+            return m_SelectedNode;
+        }
+
+        public bool HasSelectedNode()
+        {
+            return m_SelectedNode != null;
+        }
         public Node GetNode (Vector2Int coordinate)
         {
             return GetNode(coordinate.x, coordinate.y);

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8696343847952060138}
   - component: {fileID: 569174724418495819}
   - component: {fileID: 8378550497796843125}
-  - component: {fileID: 9142403033368450996}
   - component: {fileID: -557684406159461928}
   m_Layer: 0
   m_Name: Enemy
@@ -85,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9142403033368450996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8952822415159781667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 911cd2ed0e27d134abe3c1712ac3be88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Speed: 4
 --- !u!114 &-557684406159461928
 MonoBehaviour:
   m_ObjectHideFlags: 0
