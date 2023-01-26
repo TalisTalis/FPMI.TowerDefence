@@ -1,4 +1,4 @@
-﻿using Assets;
+﻿using Enemy;
 using UnityEngine;
 
 namespace EnemySpawn

@@ -1,5 +1,4 @@
-﻿using Assets;
-using Enemy;
+﻿using Enemy;
 using Field;
 using RunTime;
 using UnityEngine;
