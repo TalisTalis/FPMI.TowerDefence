@@ -1,5 +1,7 @@
 ﻿using Enemy;
+using JetBrains.Annotations;
 using RunTime;
+using System.Collections.Generic;
 using Turret;
 using UnityEngine;
 using Weapon;
@@ -11,6 +13,12 @@ namespace Projectile
         private TurretProjectileWeaponAsset m_Asset;
         // хранение башни
         private TurretView m_View;
+        // чтобы башня постоянно смотрела на таргет не смотря на тики
+        [CanBeNull]
+        private EnemyData m_ClosesEnemyData;
+
+        private List<IProjectile> m_Projectiles = new List<IProjectile>();
+
         // время между выстрелами
         private float m_TimeBetweenShots;
         // сохранение максимального расстояния
@@ -28,6 +36,14 @@ namespace Projectile
         }
         public void TickShoot()
         {
+            TickWeapon();
+            TickTower();
+            //Debug.Log("search"); 
+            TickProjectiles();
+        }
+
+        private void TickWeapon()
+        {
             // сколько времени прошло с последнего выстрела
             float passedTime = Time.time - m_LastShotTime;
 
@@ -35,22 +51,53 @@ namespace Projectile
             {
                 return;
             }
+            //Debug.Log("search");
 
-            EnemyData closesEnemyData = 
-                Game.Player.EnemySearch.GetClosesEnemy(m_View.transform.position, m_MaxDistance);
-            if (closesEnemyData == null)
+            m_ClosesEnemyData = Game.Player.EnemySearch.GetClosesEnemy(m_View.transform.position, m_MaxDistance);
+
+            if (m_ClosesEnemyData == null)
             {
+                //Debug.Log("search");
                 return;
             }
 
-            Shoot(closesEnemyData);
+            TickTower();
+
+            Shoot(m_ClosesEnemyData);
 
             m_LastShotTime = Time.time;
         }
 
+        // метод поворота башни
+        private void TickTower()
+        {
+            if (m_ClosesEnemyData != null)
+            {
+                m_View.TowerLookAt(m_ClosesEnemyData.View.transform.position);
+            }            
+        }
+
+        private void TickProjectiles()
+        {
+            for (int i = 0; i < m_Projectiles.Count; i++)
+            {
+                IProjectile projectile = m_Projectiles[i];
+                projectile.TickApproaching();
+
+                if (projectile.DidHit())
+                {
+                    projectile.DestroyProjectile();
+                    //m_Projectiles.Remove(projectile);
+                    m_Projectiles[i] = null;
+                }
+            }
+
+            m_Projectiles.RemoveAll(projectile => projectile == null);
+        }
+
         private void Shoot(EnemyData enemyData)
         {
-            m_Asset.ProjectileAsset.CreateProjectile(m_View.ProjectileOrigin.position, m_View.ProjectileOrigin.forward, enemyData);
+            m_Projectiles.Add(m_Asset.ProjectileAsset.CreateProjectile(m_View.ProjectileOrigin.position, m_View.ProjectileOrigin.forward, enemyData));
         }
     }
 }

@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Turret.Weapon
+namespace Weapon
 {
     public class EnemySearch
     {
@@ -13,6 +13,7 @@ namespace Assets.Scripts.Turret.Weapon
         // конструктор
         public EnemySearch(IReadOnlyList<EnemyData> enemyDatas)
         {
+            //Debug.Log("search"); 
             m_EnemyDatas = enemyDatas;
         }
 
@@ -28,7 +29,8 @@ namespace Assets.Scripts.Turret.Weapon
             foreach (EnemyData enemyData in m_EnemyDatas)
             {
                 float sqrDistance = (enemyData.View.transform.position - center).sqrMagnitude;
-                if (sqrDistance < maxDistance)
+
+                if (sqrDistance > maxSqrDistance)
                 {
                     continue;
                 }
@@ -39,7 +41,7 @@ namespace Assets.Scripts.Turret.Weapon
                     closesEnemy = enemyData;
                 }
             }
-
+            //Debug.Log("search"); 
             return closesEnemy;
         }
     }

@@ -4,23 +4,23 @@ namespace RunTime
 {
     // интерфейс характеризует контаркт который объясняет что может делать объект
     // общие функции
-    internal interface IController
+    public interface IController
     {
         // методы
         // вызывается на момент создания контроллера
         void OnStart()
         {
-            Debug.Log("Start");
+            //Debug.Log("Start");
         }
         // вызывается в момент все контроллеры остановятся
         void OnStop()
         {
-            Debug.Log("Stop");
+            //Debug.Log("Stop");
         }
         // вызывается каждый кадр
         void Tick()
         {
-            Debug.Log("Tick");
+            //Debug.Log("Tick");
         }
     }
 }

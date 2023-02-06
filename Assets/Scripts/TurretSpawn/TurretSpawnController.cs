@@ -32,7 +32,7 @@ namespace TurretSpawn
             {
                 Node selectedNode = m_Grid.GetSelectedNode();
 
-                if (selectedNode.IsOccupied /* || !m_Grid.CanOccupy(selectedNote) */)
+                if (selectedNode.IsOccupied) /* || !m_Grid.CanOccupy(selectedNote) */
                 {
                     return;
                 }
@@ -49,6 +49,9 @@ namespace TurretSpawn
             TurretData data = new TurretData(asset, node);
 
             data.AttachView(view);
+
+            // спавн туррели
+            Game.Player.TurretSpawned(data);
 
             node.IsOccupied = true; // tryOccupy()
             m_Grid.UpdatePathFinding();

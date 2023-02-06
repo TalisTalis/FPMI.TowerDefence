@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    [CreateAssetMenu(menuName = "Assets/Level Asset", fileName = "Level Asset")]
+    [CreateAssetMenu(menuName = "Assets/Level Asset", fileName = "LevelAsset")]
     public class LevelAsset : ScriptableObject
     {
         public SceneAsset SceneAsset;
