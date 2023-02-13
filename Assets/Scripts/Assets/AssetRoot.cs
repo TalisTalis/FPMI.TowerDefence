@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Enemy
+namespace Assets
 {
     // корневой файл
     // аттрибут для добавления пункта меню в редакторе

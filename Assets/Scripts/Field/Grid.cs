@@ -12,6 +12,7 @@ namespace Field
         private int m_Width;
         private int m_Height;
 
+        // координаты начало пути врагов и цели врагов
         private Vector2Int m_StartCoordinate;
         private Vector2Int m_TargetCoordinate;
 
@@ -25,7 +26,7 @@ namespace Field
         public int Height => m_Height;
 
         // конструктор сетки
-        public Grid(int width, int height,Vector3 offset, float nodeSize, Vector2Int startCoordinate, Vector2Int target)
+        public Grid(int width, int height, Vector3 offset, float nodeSize, Vector2Int startCoordinate, Vector2Int target)
         {
             m_Width = width;
             m_Height = height;
@@ -36,7 +37,7 @@ namespace Field
             // создаем массив
             m_Nodes = new Node[m_Width, m_Height];
 
-            // проходим по массивуу для создания новых нодов
+            // проходим по массиву для создания новых нодов
             for (int i = 0; i < m_Nodes.GetLength(0); i++)
             {
                 for (int j = 0; j < m_Nodes.GetLength(1); j++)
@@ -100,6 +101,7 @@ namespace Field
             {
                 return null;
             }
+
             return m_Nodes[i, j];
         }
 

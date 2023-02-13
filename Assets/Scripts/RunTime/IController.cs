@@ -8,19 +8,10 @@ namespace RunTime
     {
         // методы
         // вызывается на момент создания контроллера
-        void OnStart()
-        {
-            //Debug.Log("Start");
-        }
+        void OnStart();
         // вызывается в момент все контроллеры остановятся
-        void OnStop()
-        {
-            //Debug.Log("Stop");
-        }
+        void OnStop();
         // вызывается каждый кадр
-        void Tick()
-        {
-            //Debug.Log("Tick");
-        }
+        void Tick();
     }
 }

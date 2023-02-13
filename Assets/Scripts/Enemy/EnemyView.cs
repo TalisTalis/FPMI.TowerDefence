@@ -1,7 +1,7 @@
 ﻿using Field;
 using UnityEngine;
 
-namespace Enemy
+namespace Assets
 {
     public class EnemyView : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace Enemy
         // метод который создает этого агента
         public void CreateMovementAgent(Field.Grid grid)
         {
-            m_MovementAgent = new GridMovementAgent(5f, transform, grid);
+            m_MovementAgent = new GridMovementAgent(m_Data.Asset.Speed, transform, grid);
         }
     }
 }

@@ -3,7 +3,7 @@ using TurretSpawn;
 using UnityEditor;
 using UnityEngine;
 
-namespace Enemy
+namespace Assets
 {
     [CreateAssetMenu(menuName = "Assets/Level Asset", fileName = "LevelAsset")]
     public class LevelAsset : ScriptableObject

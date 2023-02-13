@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Field
@@ -58,7 +58,7 @@ namespace Field
                         // устанавливаем текущую ноду соседней
                         neighbourNode.NextNode = currentNode;
 
-                        // усутанавливаем соседней ноде вес цели
+                        // устанавливаем соседней ноде вес цели
                         neighbourNode.PatWeight = weigthToTarget;
 
                         // добавление соседа в очередь

@@ -1,6 +1,6 @@
 ﻿using RunTime;
 
-namespace Enemy
+namespace Assets
 {
     public class MovementController : IController
     {

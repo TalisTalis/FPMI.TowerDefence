@@ -1,4 +1,4 @@
-﻿namespace Enemy
+﻿namespace Assets
 {
     public interface IMovementAgent
     {

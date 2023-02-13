@@ -1,5 +1,4 @@
-﻿using Enemy;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace EnemySpawn
 {

@@ -1,5 +1,5 @@
 ﻿using Projectile;
-using Enemy;
+using Assets;
 using UnityEngine;
 
 namespace Projectile

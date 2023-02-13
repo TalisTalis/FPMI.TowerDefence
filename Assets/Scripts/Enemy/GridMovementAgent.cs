@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Field;
 
-namespace Enemy
+namespace Assets
 {
     public class GridMovementAgent : IMovementAgent
     {

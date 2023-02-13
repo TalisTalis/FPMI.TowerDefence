@@ -1,5 +1,5 @@
 ﻿using Weapon;
-using Enemy;
+using Assets;
 using EnemySpawn;
 using Field;
 using System;
@@ -53,7 +53,7 @@ namespace RunTime
 
         private void OnStartControllers()
         {
-            foreach (var controller in m_Controllers)
+            foreach (IController controller in m_Controllers)
             {
                 // если один из контроллеров сломается, то остальные продолжат работу
                 try
@@ -70,7 +70,7 @@ namespace RunTime
 
         private void TickControllers()
         {
-            foreach (var controller in m_Controllers)
+            foreach (IController controller in m_Controllers)
             {
                 // если один из контроллеров сломается, то остальные продолжат работу
                 try
@@ -87,7 +87,7 @@ namespace RunTime
 
         private void OnStopControllers()
         {
-            foreach (var controller in m_Controllers)
+            foreach (IController controller in m_Controllers)
             {
                 // если один из контроллеров сломается, то остальные продолжат работу
                 try

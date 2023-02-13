@@ -1,4 +1,4 @@
-﻿using Enemy;
+﻿using Assets;
 
 namespace EnemySpawn
 {

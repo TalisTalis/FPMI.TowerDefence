@@ -5,15 +5,15 @@ namespace Weapon
 {
     public class TurretShootController : IController
     {
-        void OnStart()
+        public void OnStart()
         {            
         }
 
-        void OnStop()
+        public void OnStop()
         {            
         }
 
-        void Tick()
+        public void Tick()
         {
             foreach (TurretData turretData in Game.Player.TurretDatas)
             {
