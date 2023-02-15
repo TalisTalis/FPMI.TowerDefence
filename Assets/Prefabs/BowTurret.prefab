@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ProjectileOrigin: {fileID: 6977459604465556705}
+  m_Animator: {fileID: 6912489042432713350}
   m_Tower: {fileID: 5762008396260997058}
 --- !u!95 &6912489042432713350
 Animator:

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e13a703481ee541ae183175bbba269, type: 3}
+  m_Name: Arrow
+  m_EditorClassIdentifier: 
+  m_BulletPrefab: {fileID: 701350324701165270, guid: 3bb8eb73a1a4c1049a50e04cbf5f7ca0, type: 3}
+  Speed: 40
+  Damage: 5
