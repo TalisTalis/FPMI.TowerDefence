@@ -71,7 +71,7 @@ namespace Projectile
         // метод поворота башни
         private void TickTower()
         {
-            if (m_ClosesEnemyData != null)
+            if (m_ClosesEnemyData != null && !m_ClosesEnemyData.IsDead)
             {
                 m_View.TowerLookAt(m_ClosesEnemyData.View.transform.position);
             }            

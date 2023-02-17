@@ -25,5 +25,10 @@ namespace Assets
         {
             m_MovementAgent = new GridMovementAgent(m_Data.Asset.Speed, transform, grid);
         }
+
+        public void Die()
+        {
+            Destroy(gameObject);
+        }
     }
 }

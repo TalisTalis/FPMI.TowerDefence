@@ -10,6 +10,8 @@ namespace Assets
         private EnemyAsset m_Asset;
         private float m_Health;
 
+        public bool IsDead => m_Health <= 0;
+
         public EnemyView View => m_View;
         public EnemyAsset Asset => m_Asset;
 
@@ -28,17 +30,16 @@ namespace Assets
 
         public void GetDamage(float damage)
         {
-            m_Health -= damage;
-
-            if (m_Health < 0)
+            if (IsDead)
             {
-                Die();
+                return;
             }
+            m_Health -= damage;
         }
 
-        private void Die()
+        public void Die()
         {
-            Debug.Log("Die!");
+            m_View.Die();
         }
     }
 }

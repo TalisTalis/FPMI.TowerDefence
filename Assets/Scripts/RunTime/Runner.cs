@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using TurretSpawn;
 using UnityEngine;
+using Assets.Scripts.Enemy;
 
 namespace RunTime
 {
@@ -47,7 +48,8 @@ namespace RunTime
                 new EnemySpawnController(Game.CurrentLevel.SpawnWavesAsset, Game.Player.Grid),
                 new TurretSpawnController(Game.Player.Grid, Game.Player.TurretMarket),
                 new MovementController(),
-                new TurretShootController()
+                new TurretShootController(),
+                new EnemyDeathController()
             };
         }
 
