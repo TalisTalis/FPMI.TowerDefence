@@ -1,15 +1,22 @@
 ﻿using Assets;
+using Assets.Scripts.Utils.Pooling;
 using Projectile;
 using UnityEngine;
 
 namespace Bullet
 {
-    public class BulletProjectile : MonoBehaviour, IProjectile
+    public class BulletProjectile : PooledMonoBehaviour, IProjectile
     {
         private float m_Speed;
         private float m_Damage;
         private bool m_DidHit = false;
-        private EnemyData m_HitEnemy = null;                        
+        private EnemyData m_HitEnemy = null;
+
+        public override void AwakePooled()
+        {
+            m_DidHit = false;
+            m_HitEnemy = null;
+        }
 
         public void SetAsset(BulletProjectileAsset bulletProjectileAsset)
         {
@@ -48,7 +55,7 @@ namespace Bullet
                 m_HitEnemy.GetDamage(m_Damage);
             }
 
-            Destroy(gameObject); // именно object потому что иначе уничтожит компонент, а не объект
+            GameObjectPool.ReturnObjectToPool(this);
         }
     }
 }

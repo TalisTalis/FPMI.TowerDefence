@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.Scripts.Utils.Pooling;
 using Projectile;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Bullet
         public float Damage;
         public override IProjectile CreateProjectile(Vector3 origin, Vector3 originForward, EnemyData enemyData)
         {
-            BulletProjectile projectile = Instantiate(m_BulletPrefab,
+            BulletProjectile projectile = (BulletProjectile)GameObjectPool.InstatiatePooled(m_BulletPrefab,
                 origin,
                 Quaternion.LookRotation(originForward, Vector3.up));
 
