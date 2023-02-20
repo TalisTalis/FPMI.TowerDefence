@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using Turret;
 using TurretSpawn;
 using UnityEngine;
+using RunTime;
 
-namespace RunTime
+namespace Assets.Scripts.Main
 {
     public class Player
     {
@@ -23,7 +24,8 @@ namespace RunTime
         public readonly TurretMarket TurretMarket;
         public readonly EnemySearch EnemySearch;
 
-        //пустой конструктор
+        private bool m_AllWavesAreSpawned = false;
+
         public Player()
         {
             GridHolder = Object.FindObjectOfType<GridHolder>();
@@ -48,9 +50,28 @@ namespace RunTime
             m_EnemyDatas.Remove(data);
         }
 
+        public void LastWaveSpawned()
+        {
+            m_AllWavesAreSpawned = true;
+        }
+
         public void TurretSpawned(TurretData data)
         {
             m_TurretDatas.Add(data);
+        }
+
+        private void GameWon()
+        {
+            Game.StopPlayer();
+            Debug.Log("Victory!");
+        }
+
+        public void CheckForWin()
+        {
+            if (m_AllWavesAreSpawned && m_EnemyDatas.Count == 0)
+            {
+                GameWon();
+            }
         }
     }
 }

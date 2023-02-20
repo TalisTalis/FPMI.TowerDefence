@@ -1,4 +1,5 @@
 ﻿using Assets;
+using Assets.Scripts.Main;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -48,7 +49,7 @@ namespace RunTime
             m_Runner.StartRunning();
         }
 
-        private static void StopPlayer()
+        public static void StopPlayer()
         {
             m_Runner.StopRunning();
         }

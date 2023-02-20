@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using TurretSpawn;
 using UnityEngine;
 using Assets.Scripts.Enemy;
+using Assets.Scripts.Main;
 
 namespace RunTime
 {
@@ -49,7 +50,8 @@ namespace RunTime
                 new TurretSpawnController(Game.Player.Grid, Game.Player.TurretMarket),
                 new MovementController(),
                 new TurretShootController(),
-                new EnemyDeathController()
+                new EnemyDeathController(),
+                new WinController()
             };
         }
 
@@ -74,6 +76,12 @@ namespace RunTime
         {
             foreach (IController controller in m_Controllers)
             {
+                // если произойдет остановка, то дальше по спискам контроллеров не пойдет 
+                if (!m_IsRunning)
+                {
+                    return;
+                }
+
                 // если один из контроллеров сломается, то остальные продолжат работу
                 try
                 {
