@@ -41,5 +41,11 @@ namespace Assets
         {
             m_View.Die();
         }
+
+        public void ReachedTarget()
+        {
+            m_Health = 0;
+            View.ReachTarget();
+        }
     }
 }

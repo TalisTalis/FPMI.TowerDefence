@@ -1,4 +1,5 @@
 ﻿using Field;
+using System;
 using UnityEngine;
 
 namespace Assets
@@ -27,6 +28,11 @@ namespace Assets
         }
 
         public void Die()
+        {
+            Destroy(gameObject);
+        }
+
+        internal void ReachTarget()
         {
             Destroy(gameObject);
         }

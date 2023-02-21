@@ -25,6 +25,9 @@ namespace Assets.Scripts.Main
         public readonly EnemySearch EnemySearch;
 
         private bool m_AllWavesAreSpawned = false;
+        private int m_Health;
+
+        public int Health => m_Health;
 
         public Player()
         {
@@ -37,7 +40,7 @@ namespace Assets.Scripts.Main
             TurretMarket = new TurretMarket(Game.CurrentLevel.TurretMarketAsset);
 
             EnemySearch = new EnemySearch(m_EnemyDatas);
-            //Debug.Log("search");
+            m_Health = Game.CurrentLevel.StartHealth;
         }
 
         public void EnemySpawned(EnemyData data)
@@ -50,14 +53,32 @@ namespace Assets.Scripts.Main
             m_EnemyDatas.Remove(data);
         }
 
+        public void EnemyReachTarget(EnemyData data)
+        {
+            m_EnemyDatas.Remove(data);
+        }
+
         public void LastWaveSpawned()
         {
             m_AllWavesAreSpawned = true;
         }
 
+        public void ApplyDamage(int damage)
+        {
+            m_Health -= damage;
+        }
+
         public void TurretSpawned(TurretData data)
         {
             m_TurretDatas.Add(data);
+        }
+        
+        public void CheckForWin()
+        {
+            if (m_AllWavesAreSpawned && m_EnemyDatas.Count == 0)
+            {
+                GameWon();
+            }
         }
 
         private void GameWon()
@@ -66,12 +87,18 @@ namespace Assets.Scripts.Main
             Debug.Log("Victory!");
         }
 
-        public void CheckForWin()
+        public void CheckForLose()
         {
-            if (m_AllWavesAreSpawned && m_EnemyDatas.Count == 0)
+            if (m_Health <= 0)
             {
-                GameWon();
+                GameLost();
             }
+        }
+
+        private void GameLost()
+        {
+            Game.StopPlayer();
+            Debug.Log("Lose!");
         }
     }
 }

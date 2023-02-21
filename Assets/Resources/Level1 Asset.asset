@@ -15,3 +15,4 @@ MonoBehaviour:
   SceneAsset: {fileID: 102900000, guid: a82356438d44e364ebf10932bdcd90d0, type: 3}
   SpawnWavesAsset: {fileID: 11400000, guid: e861e31e317b3064294eb420a888c5d9, type: 2}
   TurretMarketAsset: {fileID: 11400000, guid: 49cba28e6f583854586b9a0572ef335f, type: 2}
+  StartHealth: 10

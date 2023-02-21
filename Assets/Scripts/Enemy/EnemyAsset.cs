@@ -10,5 +10,7 @@ namespace Assets
         public float Speed;
         // внешнее представление
         public EnemyView ViewPrefab;
+
+        public int Damage;
     }
 }

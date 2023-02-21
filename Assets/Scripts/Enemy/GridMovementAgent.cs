@@ -45,10 +45,16 @@ namespace Assets
             m_Transform.Translate(delta);
         }
 
-        // метод задает стартовую ноду из которой мы вышли
+        // метод задает конечную ноду в которую мы идем
         private void SetTargetNode(Node node)
         {
             m_TargetNode = node;
+        }
+
+        public Node GetCurrentNode()
+        {
+            // когда подошли к ноде то мы уже там. не баг а фича
+            return m_TargetNode;
         }
     }
 }

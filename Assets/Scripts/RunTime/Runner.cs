@@ -49,8 +49,10 @@ namespace RunTime
                 new EnemySpawnController(Game.CurrentLevel.SpawnWavesAsset, Game.Player.Grid),
                 new TurretSpawnController(Game.Player.Grid, Game.Player.TurretMarket),
                 new MovementController(),
+                new EnemyReachController(Game.Player.Grid), // если враг дошел до цели и умер то он нанесет дамаг
                 new TurretShootController(),
                 new EnemyDeathController(),
+                new LoseController(),
                 new WinController()
             };
         }
