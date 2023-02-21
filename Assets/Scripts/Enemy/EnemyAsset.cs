@@ -12,5 +12,6 @@ namespace Assets
         public EnemyView ViewPrefab;
 
         public int Damage;
+        public int Reward;
     }
 }

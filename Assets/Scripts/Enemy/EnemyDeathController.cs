@@ -23,6 +23,7 @@ namespace Assets.Scripts.Enemy
                 if (enemyData.IsDead)
                 {
                     m_DiedEnemyDatas.Add(enemyData);
+                    Game.Player.TurretMarket.GetReward(enemyData);
                     enemyData.Die();
                 }
             }
