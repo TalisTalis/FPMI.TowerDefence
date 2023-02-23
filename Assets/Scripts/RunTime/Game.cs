@@ -47,6 +47,8 @@ namespace RunTime
             // нахождение раннера на сцене
             m_Runner = Object.FindObjectOfType<Runner>();
             m_Runner.StartRunning();
+
+            SceneManager.LoadScene(AssetRoot.UIScene.name, LoadSceneMode.Additive);
         }
 
         public static void StopPlayer()

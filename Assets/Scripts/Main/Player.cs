@@ -6,6 +6,7 @@ using Turret;
 using TurretSpawn;
 using UnityEngine;
 using RunTime;
+using System;
 
 namespace Assets.Scripts.Main
 {
@@ -28,10 +29,13 @@ namespace Assets.Scripts.Main
         private int m_Health;
 
         public int Health => m_Health;
+        // событие которое можно вызвать и передать в него данные указанного типа
+        // а другие могут на это событие подписаться и будет вызываться указанный метод
+        public event Action<int> HealthChanged;
 
         public Player()
         {
-            GridHolder = Object.FindObjectOfType<GridHolder>();
+            GridHolder = UnityEngine.Object.FindObjectOfType<GridHolder>();
             GridHolder.CreateGrid();
 
             Grid = GridHolder.Grid;
@@ -66,6 +70,7 @@ namespace Assets.Scripts.Main
         public void ApplyDamage(int damage)
         {
             m_Health -= damage;
+            HealthChanged?.Invoke(m_Health); // если null то всё что после точки исполнять не нужно
         }
 
         public void TurretSpawned(TurretData data)

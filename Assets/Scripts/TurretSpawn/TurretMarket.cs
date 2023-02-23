@@ -1,5 +1,6 @@
 ﻿using Assets;
 using RunTime;
+using System;
 using Turret;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace TurretSpawn
     {
         private TurretMarketAsset m_Asset;
         private int m_Money;
+
+        public int Money => m_Money;
+        public event Action<int> MoneyChanged;
 
         // конструктор
         public TurretMarket(TurretMarketAsset asset)
@@ -28,11 +32,13 @@ namespace TurretSpawn
                 Debug.Log("Not enough money!");
             }
             m_Money -= turretAsset.Price;
+            MoneyChanged?.Invoke(m_Money);
         }
 
         public void GetReward(EnemyData enemyData)
         {
             m_Money += enemyData.Asset.Reward;
+            MoneyChanged?.Invoke(m_Money);
         }
     }
 }
