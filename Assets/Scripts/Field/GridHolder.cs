@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Field
 {
@@ -76,7 +77,11 @@ namespace Field
             {
                 return;
             }
-            
+
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             // получение текущего положения мышки
             Vector3 mousePosition = Input.mousePosition;
 

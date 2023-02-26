@@ -1,4 +1,5 @@
-﻿using Assets;
+﻿using System;
+using Assets;
 using UnityEngine;
 
 namespace Assets
@@ -14,6 +15,9 @@ namespace Assets
 
         public EnemyView View => m_View;
         public EnemyAsset Asset => m_Asset;
+        public float Health => m_Health;
+
+        public event Action<float> HealthChanged; 
 
         // конструктор
         public EnemyData(EnemyAsset asset)
@@ -35,6 +39,12 @@ namespace Assets
                 return;
             }
             m_Health -= damage;
+            if (m_Health < 0)
+            {
+                m_Health = 0;
+            }
+            
+            HealthChanged?.Invoke(m_Health);
         }
 
         public void Die()

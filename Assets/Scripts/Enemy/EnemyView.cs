@@ -1,11 +1,13 @@
 ﻿using Field;
 using System;
+using Assets.Scripts.UI.InGame.Overtips;
 using UnityEngine;
 
 namespace Assets
 {
     public class EnemyView : MonoBehaviour
     {
+        [SerializeField] private EnemyOvertip m_Overtip;
         // ссылка на дату
         private EnemyData m_Data;
         private IMovementAgent m_MovementAgent;
@@ -19,6 +21,7 @@ namespace Assets
         public void AttachData(EnemyData data)
         {
             m_Data = data;
+            m_Overtip.SetData(m_Data);
         }
 
         // метод который создает этого агента

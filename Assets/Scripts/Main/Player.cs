@@ -41,7 +41,7 @@ namespace Assets.Scripts.Main
             Grid = GridHolder.Grid;
 
             // магазин башень на конкретном уровне
-            TurretMarket = new TurretMarket(Game.CurrentLevel.TurretMarketAsset);
+            TurretMarket = new TurretMarket();
 
             EnemySearch = new EnemySearch(m_EnemyDatas);
             m_Health = Game.CurrentLevel.StartHealth;
@@ -70,6 +70,10 @@ namespace Assets.Scripts.Main
         public void ApplyDamage(int damage)
         {
             m_Health -= damage;
+            if (m_Health < 0)
+            {
+                m_Health = 0;
+            }
             HealthChanged?.Invoke(m_Health); // если null то всё что после точки исполнять не нужно
         }
 
@@ -104,6 +108,16 @@ namespace Assets.Scripts.Main
         {
             Game.StopPlayer();
             Debug.Log("Lose!");
+        }
+
+        public void Pause()
+        {
+            Time.timeScale = 0f;
+        }
+
+        public void UnPause()
+        {
+            Time.timeScale = 1f;
         }
     }
 }
